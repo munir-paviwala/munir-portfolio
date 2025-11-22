@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Change Map | Munir Paviwala</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
+        body { font-family: 'Inter', sans-serif; overflow: hidden; } /* No scroll on body */
+        h1, h2, h3, h4 { font-family: 'Lora', serif; }
+    </style>
+</head>
+<body class="flex flex-col h-screen bg-gray-100">
+
+    <!-- TOP NAV -->
+    <nav class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center shadow-sm shrink-0">
+        <div class="flex items-baseline gap-3">
+            <a href="index.html" class="font-serif text-xl font-medium text-gray-900 hover:text-blue-800 transition-colors">Munir Paviwala</a>
+            <span class="hidden sm:inline-block text-xs text-gray-500 font-medium uppercase tracking-wider border-l border-gray-300 pl-3">PhD Candidate</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="index.html" class="group flex items-center text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-blue-700 transition-colors">
+                <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i> 
+                <span class="hidden sm:inline">Back to Portfolio</span>
+                <span class="sm:hidden">Back</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- MAP CONTAINER (Fills remaining space) -->
+    <main class="flex-grow relative w-full bg-gray-50">
+        
+        <!-- Placeholder -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-50 pointer-events-none">
+            <i class="fas fa-map text-6xl mb-4 opacity-10"></i>
+            <p class="font-medium opacity-50">ArcGIS Map Loads Here</p>
+            <p class="text-xs mt-2 opacity-60">(Full Width & Height)</p>
+        </div>
+
+        <!-- PASTE IFRAME HERE -->
+        <!-- <iframe src="..." class="w-full h-full" frameborder="0"></iframe> -->
+
+    </main>
+
+</body>
+</html>

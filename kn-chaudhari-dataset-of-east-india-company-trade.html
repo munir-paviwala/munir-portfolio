@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset of East India Company Trade by K N Chaudhari | Munir Paviwala</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1a1a1a; }
+        h1, h2, h3, h4 { font-family: 'Lora', serif; }
+        .prose h3 { font-family: 'Lora', serif; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: #111; }
+        .prose p { margin-bottom: 1.5rem; line-height: 1.8; color: #4b5563; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #4b5563; }
+    </style>
+</head>
+<body class="bg-white min-h-screen flex flex-col">
+
+    <!-- TOP NAV -->
+    <nav class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center shadow-sm">
+        <div class="flex items-baseline gap-3">
+            <a href="index.html" class="font-serif text-xl font-medium text-gray-900 hover:text-blue-800 transition-colors">Munir Paviwala</a>
+            <span class="hidden sm:inline-block text-xs text-gray-500 font-medium uppercase tracking-wider border-l border-gray-300 pl-3">PhD Candidate</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="index.html" class="group flex items-center text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-blue-700 transition-colors">
+                <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i> 
+                <span class="hidden sm:inline">Back to Portfolio</span>
+                <span class="sm:hidden">Back</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 py-12">
+        
+        <!-- Header -->
+        <header class="mb-12 border-b border-gray-100 pb-8">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="px-2 py-1 bg-purple-50 text-purple-800 text-[10px] uppercase tracking-wider font-bold rounded">Dataset</span>
+                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-[10px] uppercase tracking-wider font-bold rounded">1660-1760</span>
+            </div>
+            <h1 class="text-3xl md:text-5xl text-gray-900 font-medium mb-4 leading-tight">
+                Dataset: British East India Company Trade
+            </h1>
+            <p class="text-lg text-gray-500 font-serif italic">
+                Cleaned and standardized data based on K. N. Chaudhuri's seminal work.
+            </p>
+        </header>
+
+        <!-- Access Card -->
+        <div class="bg-slate-50 border border-slate-200 rounded-lg p-8 mb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
+            <div class="flex items-start gap-4">
+                <div class="bg-white p-3 rounded border border-gray-200 shadow-sm text-green-600">
+                    <i class="fas fa-file-excel text-3xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-900 text-lg">Access the Data</h4>
+                    <p class="text-sm text-gray-500 mt-1">Available via Google Sheets / Excel</p>
+                </div>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1hTDQB8CjsGwJyRuEdWOesOBuucD2lBb-" target="_blank" class="px-6 py-3 bg-blue-800 hover:bg-blue-700 text-white font-medium rounded shadow transition-colors text-sm whitespace-nowrap">
+                Open Dataset <i class="fas fa-external-link-alt ml-2"></i>
+            </a>
+        </div>
+
+        <!-- Text Content -->
+        <article class="prose max-w-none">
+            <h3>About this Dataset</h3>
+            <p>
+                This dataset provides a cleaned and digital version of the trade data originally compiled by K. N. Chaudhuri in his work <em>The Trading World of Asia and the English East India Company</em> (1978).
+            </p>
+            <p>
+                While Chaudhuri's work is a cornerstone of economic history, the data has often been difficult for modern researchers to utilize directly in digital formats. I have cleaned, structured, and updated the data to make it open and accessible for anyone wishing to conduct further research or quantitative analysis.
+            </p>
+
+            <h3>Scope & Coverage</h3>
+            <ul>
+                <li><strong>Time Period:</strong> 1660 to 1760</li>
+                <li><strong>Source:</strong> Chaudhari, K. N. (1978). <em>The Trading World of Asia and the English East India Company: 1660-1760</em>. Cambridge University Press.</li>
+                <li><strong>Format:</strong> Structured rows and columns suitable for import into R, Python, or Tableau.</li>
+            </ul>
+        </article>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-100 py-8 text-center text-xs text-gray-400 font-light mt-auto">
+        &copy; 2025 Munirmahedi Paviwala.
+    </footer>
+</body>
+</html>
