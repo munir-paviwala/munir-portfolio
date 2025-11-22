@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agricultural Change Map | Munir Paviwala</title>
+    <title>Visualizing EIC | Munirmahedi Paviwala</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
-        body { font-family: 'Inter', sans-serif; overflow: hidden; } /* No scroll on body */
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1a1a1a; }
         h1, h2, h3, h4 { font-family: 'Lora', serif; }
+        .prose h3 { font-family: 'Lora', serif; font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; color: #111; }
+        .prose p { margin-bottom: 1.5rem; line-height: 1.8; color: #4b5563; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; color: #4b5563; }
     </style>
 </head>
-<body class="flex flex-col h-screen bg-gray-100">
+<body class="bg-white min-h-screen flex flex-col">
 
     <!-- TOP NAV -->
-    <nav class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center shadow-sm shrink-0">
+    <nav class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center shadow-sm">
         <div class="flex items-baseline gap-3">
-            <a href="index.html" class="font-serif text-xl font-medium text-gray-900 hover:text-blue-800 transition-colors">Munir Paviwala</a>
+            <a href="index.html" class="font-serif text-xl font-medium text-gray-900 hover:text-blue-800 transition-colors">Munirmahedi Paviwala</a>
             <span class="hidden sm:inline-block text-xs text-gray-500 font-medium uppercase tracking-wider border-l border-gray-300 pl-3">PhD Candidate</span>
         </div>
         <div class="flex items-center gap-6">
@@ -29,20 +32,61 @@
         </div>
     </nav>
 
-    <!-- MAP CONTAINER (Fills remaining space) -->
-    <main class="flex-grow relative w-full bg-gray-50">
+    <!-- CONTENT -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 py-12">
         
-        <!-- Placeholder -->
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-50 pointer-events-none">
-            <i class="fas fa-map text-6xl mb-4 opacity-10"></i>
-            <p class="font-medium opacity-50">ArcGIS Map Loads Here</p>
-            <p class="text-xs mt-2 opacity-60">(Full Width & Height)</p>
+        <!-- Header -->
+        <header class="mb-12 border-b border-gray-100 pb-8">
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="px-2 py-1 bg-blue-50 text-blue-800 text-[10px] uppercase tracking-wider font-bold rounded">Tableau</span>
+                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-[10px] uppercase tracking-wider font-bold rounded">1660-1834</span>
+            </div>
+            <h1 class="text-3xl md:text-5xl text-gray-900 font-medium mb-4 leading-tight">
+                Visualizing the East India Company
+            </h1>
+            <p class="text-lg text-gray-500 font-serif italic">
+                Tracing the changing patterns of global trade over two centuries.
+            </p>
+        </header>
+
+        <!-- Tableau Embed Placeholder -->
+        <div class="w-full h-[600px] bg-slate-50 rounded-lg border border-slate-200 mb-12 flex flex-col items-center justify-center text-center p-8 shadow-sm">
+            <i class="fas fa-chart-bar text-4xl text-slate-300 mb-4"></i>
+            <p class="text-slate-500 font-medium">Tableau Visualization Loads Here</p>
+            <p class="text-slate-400 text-sm mt-2 max-w-xs">
+                (Paste your Tableau Embed Code inside this div)
+            </p>
         </div>
 
-        <!-- PASTE IFRAME HERE -->
-        <!-- <iframe src="..." class="w-full h-full" frameborder="0"></iframe> -->
+        <!-- Text Content -->
+        <article class="prose max-w-none">
+            <h3>Abstract</h3>
+            <p>
+                The visualization above highlights the flow of different commodities across Asia by the British East India Company (EIC). It showcases the changes in trading patterns as the EIC transformed from a mercantile outfit into a colonial force in South Asia.
+            </p>
+
+            <h3>Reflections on the Data</h3>
+            <p>
+                Despite the monumental work of K. N. Chaudhari and H. V. Bowen, the limitations of the data are shocking. For the period of 1660 to 1760, we don't know where exports from London went. This comes up in the visualisation when you try to filter the data based on location.
+            </p>
+            
+            <h3>Data Sources</h3>
+            <ul>
+                <li><strong>1660–1760:</strong> K. N. Chaudhari, <em>The Trading World of Asia...</em> (1976).</li>
+                <li><strong>1760–1834:</strong> H. V. Bowen, <em>The Business of Empire...</em> (2005).</li>
+            </ul>
+
+            <h3>Limitations</h3>
+            <p>
+                Chaudhari's data lacks destination details for exports. Bowen's data provides origin/destination points. Merging these datasets reveals gaps, particularly when filtering for specific ports prior to 1760.
+            </p>
+        </article>
 
     </main>
 
+    <!-- Footer -->
+    <footer class="border-t border-gray-100 py-8 text-center text-xs text-gray-400 font-light mt-auto">
+        &copy; 2025 Munirmahedi Paviwala.
+    </footer>
 </body>
 </html>
