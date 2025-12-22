@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIDC Industrial Growth & Geography</title>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Custom map height */
+        #map { height: 500px; width: 100%; border-radius: 0.5rem; z-index: 1;}
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto space-y-8">
+        
+        <!-- Header Section -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-800">Gujarat Industrial Development Corporation</h1>
+                <p class="text-slate-500 text-sm mt-1">Growth Timeline & Geographical Distribution (1975 - 2013)</p>
+            </div>
+            <button onclick="downloadCSV()" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg shadow transition-all font-medium text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Download Data (CSV)
+            </button>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
+                <div id="totalArea" class="text-3xl font-bold text-blue-600">0</div>
+                <div class="text-xs uppercase tracking-wide text-gray-400 font-semibold mt-1">Total Hectares</div>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
+                <div id="totalUnits" class="text-3xl font-bold text-indigo-600">0</div>
+                <div class="text-xs uppercase tracking-wide text-gray-400 font-semibold mt-1">Units Notified</div>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
+                <div id="largestUnit" class="text-lg font-bold text-emerald-600 truncate px-2">-</div>
+                <div class="text-xs uppercase tracking-wide text-gray-400 font-semibold mt-1">Largest Single Notification</div>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+            <h2 class="text-lg font-semibold text-gray-700 mb-4 border-l-4 border-blue-500 pl-3">Cumulative Growth Timeline</h2>
+            <div class="relative h-[400px] w-full">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+            <h2 class="text-lg font-semibold text-gray-700 mb-4 border-l-4 border-emerald-500 pl-3">Geographical Distribution</h2>
+            <p class="text-sm text-gray-500 mb-4">Circle size represents the area in hectares. Hover for details.</p>
+            <div id="map" class="bg-gray-100"></div>
+        </div>
+
+        <p class="text-center text-xs text-gray-400 mt-8">
+            Data sourced from Wikipedia GIDC Notified Areas table. Coordinates are approximate locations of the industrial estates.
+        </p>
+    </div>
+
+    <script>
+        // --- DATA PREPARATION ---
+        // Coordinates approximated based on GIDC/City locations
+        const locations = {
+            "V.U.Nagar": [22.55, 72.92],
+            "Nandesari": [22.41, 73.10],
+            "P.C.C. Area": [22.38, 73.13], // Near IPCL/Refinery Vadodara
+            "Valsad": [20.61, 72.93],
+            "Umbergam": [20.19, 72.75],
+            "Vapi": [20.37, 72.93],
+            "Ankleshwar": [21.63, 73.02],
+            "Bharuch": [21.70, 72.99],
+            "G.S.F.C. (Baroda)": [22.36, 73.15],
+            "Kalol (NG)": [23.22, 72.51], // Gandhinagar Dist
+            "Sachin": [21.09, 72.86],
+            "Chhatral": [23.33, 72.44],
+            "Kalol": [22.61, 73.46], // Panchmahal Dist
+            "Hazira": [21.16, 72.66],
+            "Sarigam": [20.29, 72.85],
+            "Waghodia": [22.28, 73.36],
+            "Panoli": [21.53, 72.96],
+            "Vasana (Borsad)": [22.41, 72.90],
+            "GSFC Motikhavdi": [22.35, 69.87],
+            "Alang - Sosiya": [21.40, 72.20],
+            "Por - Ramangamdi": [22.18, 73.19],
+            "Valia (Gujrat Godrej)": [21.55, 73.15],
+            "Lodhika": [22.25, 70.68],
+            "Reliance Complex": [22.34, 69.88], // Jamnagar
+            "Magdalla": [21.13, 72.74],
+            "Halol": [22.50, 73.46],
+            "Jhagadia": [21.64, 73.12],
+            "Savli": [22.44, 73.20],
+            "Palej": [21.93, 73.09],
+            "Vilayat": [21.78, 72.93] // Near Bharuch
+        };
+
+        const rawData = [
+            { name: "V.U.Nagar", area: 125.00, date: "1975-05-06", district: "Anand" },
+            { name: "Nandesari", area: 230.00, date: "1975-05-06", district: "Vadodara" },
+            { name: "P.C.C. Area", area: 1345.00, date: "1975-05-06", district: "Vadodara" },
+            { name: "Valsad", area: 108.00, date: "1975-05-06", district: "Valsad" },
+            { name: "Umbergam", area: 197.00, date: "1975-05-06", district: "Valsad" },
+            { name: "Vapi", area: 939.00, date: "1975-05-06", district: "Valsad" },
+            { name: "Ankleshwar", area: 1072.00, date: "1978-02-01", district: "Bharuch" },
+            { name: "Bharuch", area: 557.00, date: "1985-09-19", district: "Bharuch" },
+            { name: "G.S.F.C. (Baroda)", area: 323.00, date: "1987-08-21", district: "Vadodara" },
+            { name: "Kalol (NG)", area: 55.30, date: "1993-09-07", district: "Gandhinagar" },
+            { name: "Sachin", area: 703.87, date: "1993-09-07", district: "Surat" },
+            { name: "Chhatral", area: 188.99, date: "1993-09-06", district: "Gandhinagar" },
+            { name: "Kalol", area: 71.83, date: "1993-09-07", district: "Panchmahal" },
+            { name: "Hazira", area: 5267.05, date: "1997-01-30", district: "Surat" },
+            { name: "Sarigam", area: 509.00, date: "1997-05-05", district: "Valsad" },
+            { name: "V.U.Nagar (Exp)", baseName: "V.U.Nagar", area: 193.00, date: "1997-08-05", district: "Anand" },
+            { name: "Waghodia", area: 338.00, date: "1998-06-28", district: "Vadodara" },
+            { name: "Panoli", area: 1053.00, date: "1998-09-10", district: "Bharuch" },
+            { name: "Vasana (Borsad)", area: 19.00, date: "1998-09-23", district: "Anand" },
+            { name: "GSFC Motikhavdi", area: 264.00, date: "1998-11-03", district: "Jamnagar" },
+            { name: "Alang - Sosiya", area: 1251.00, date: "2000-02-07", district: "Bhavnagar" },
+            { name: "Por - Ramangamdi", area: 134.63, date: "2001-01-04", district: "Vadodara" },
+            { name: "Valia (Gujrat Godrej)", area: 206.00, date: "2001-05-09", district: "Bharuch" },
+            { name: "Lodhika", area: 424.13, date: "2008-06-18", district: "Rajkot" },
+            { name: "Reliance Complex", area: 2388.00, date: "2008-09-08", district: "Jamnagar" },
+            { name: "Magdalla", area: 53.43, date: "2009-02-11", district: "Surat" },
+            { name: "Halol", area: 471.46, date: "2010-09-16", district: "Panchmahal" },
+            { name: "Jhagadia", area: 1838.98, date: "2011-01-20", district: "Bharuch" },
+            { name: "Savli", area: 832.75, date: "2011-03-14", district: "Vadodara" },
+            { name: "Palej", area: 156.03, date: "2012-08-01", district: "Bharuch" },
+            { name: "Hazira (Exp)", baseName: "Hazira", area: 42.48, date: "2013-05-18", district: "Surat" },
+            { name: "Hazira (Exp II)", baseName: "Hazira", area: 271.97, date: "2013-06-21", district: "Surat" },
+            { name: "Magdalla (Exp)", baseName: "Magdalla", area: 11.99, date: "2013-07-18", district: "Surat" },
+            { name: "Vilayat", area: 535.98, date: "2013-08-01", district: "Bharuch" },
+            { name: "Reliance Complex (Exp)", baseName: "Reliance Complex", area: 471.70, date: "2013-08-24", district: "Jamnagar" }
+        ];
+
+        // Enrich data with Coordinates
+        // If it's an expansion, use the baseName to find coords, otherwise use name
+        rawData.forEach(item => {
+            const key = item.baseName || item.name;
+            // Fuzzy match or direct lookup
+            let coordKey = Object.keys(locations).find(k => key.includes(k));
+            if(coordKey) {
+                item.coords = locations[coordKey];
+            }
+        });
+
+        // Sort by Date
+        rawData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+
+        // --- STATS LOGIC ---
+        let cumulativeArea = 0;
+        const chartData = rawData.map(item => {
+            cumulativeArea += item.area;
+            return {
+                x: item.date,
+                y: cumulativeArea,
+                addedArea: item.area,
+                name: item.name,
+                district: item.district
+            };
+        });
+
+        document.getElementById('totalArea').innerText = Math.round(cumulativeArea).toLocaleString();
+        document.getElementById('totalUnits').innerText = rawData.length;
+        const largest = rawData.reduce((prev, current) => (prev.area > current.area) ? prev : current);
+        document.getElementById('largestUnit').innerText = `${largest.name} (${Math.round(largest.area).toLocaleString()} ha)`;
+
+
+        // --- CHART JS ---
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'Cumulative Notified Area (Hectares)',
+                    data: chartData,
+                    borderColor: '#2563eb', // Blue-600
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#2563eb',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    tooltip: {
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        titleColor: '#1e293b',
+                        bodyColor: '#475569',
+                        borderColor: '#e2e8f0',
+                        borderWidth: 1,
+                        padding: 10,
+                        titleFont: { weight: 'bold' },
+                        callbacks: {
+                            title: context => new Date(context[0].raw.x).toLocaleDateString(undefined, {year: 'numeric', month: 'long'}),
+                            label: context => {
+                                const d = context.raw;
+                                return [`Total: ${Math.round(d.y).toLocaleString()} ha`, `+ ${d.name}: ${d.addedArea} ha`];
+                            }
+                        }
+                    },
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: { unit: 'year' },
+                        grid: { display: false, borderDash: [2, 4] },
+                        ticks: { maxRotation: 0, autoSkip: true }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f1f5f9' },
+                        border: { display: false }
+                    }
+                }
+            }
+        });
+
+
+        // --- LEAFLET MAP ---
+        const map = L.map('map').setView([22.2587, 71.1924], 7); // Center on Gujarat
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Group data by location (combine expansions into single circle)
+        const locationMap = {};
+        
+        rawData.forEach(item => {
+            if(!item.coords) return;
+            const key = item.coords.join(',');
+            
+            if(!locationMap[key]) {
+                locationMap[key] = {
+                    name: item.baseName || item.name,
+                    district: item.district,
+                    totalArea: 0,
+                    coords: item.coords,
+                    items: []
+                };
+            }
+            locationMap[key].totalArea += item.area;
+            locationMap[key].items.push(`${item.name} (${item.date.substring(0,4)})`);
+        });
+
+        // Add Circles
+        Object.values(locationMap).forEach(loc => {
+            // Scale radius based on area. Math.sqrt for circle area proportion.
+            const radius = Math.sqrt(loc.totalArea) * 300; 
+
+            const circle = L.circle(loc.coords, {
+                color: '#059669',       // Emerald-600 border
+                fillColor: '#10b981',   // Emerald-500 fill
+                fillOpacity: 0.5,
+                weight: 1,
+                radius: radius 
+            }).addTo(map);
+
+            const popupContent = `
+                <div class="font-sans text-sm">
+                    <h3 class="font-bold text-gray-800 border-b pb-1 mb-1">${loc.name}</h3>
+                    <p class="text-gray-600 mb-1">District: ${loc.district}</p>
+                    <p class="text-emerald-700 font-bold mb-2">Total Area: ${Math.round(loc.totalArea).toLocaleString()} ha</p>
+                    <div class="text-xs text-gray-500 max-h-20 overflow-y-auto">
+                        ${loc.items.join('<br>')}
+                    </div>
+                </div>
+            `;
+            
+            circle.bindPopup(popupContent);
+        });
+
+
+        // --- CSV DOWNLOAD ---
+        function downloadCSV() {
+            // Header
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Name,District,Notification Date,Area (Hectares),Latitude,Longitude\n";
+
+            // Rows
+            rawData.forEach(row => {
+                const lat = row.coords ? row.coords[0] : "";
+                const lng = row.coords ? row.coords[1] : "";
+                // Escape commas in names
+                const safeName = `"${row.name}"`; 
+                const rowString = `${safeName},${row.district},${row.date},${row.area},${lat},${lng}`;
+                csvContent += rowString + "\n";
+            });
+
+            // Trigger Download
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "gidc_industrial_data.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+/* Compiled CSS placeholder for custom-styles.scss
+   If you have a build step (sass/webpack), replace this by the compiled output.
+*/
+
+/* Accent for headings on this page */
+header h2 {
+  color: #0b5fff;
+  letter-spacing: -0.02em;
+}
+
+/* Slightly larger, more readable body text for pasted content */
+#pasted-content-area {
+  font-size: 1rem;
+  line-height: 1.85;
+}
+
+/* Make the dashed paste placeholder more distinct */
+#pasted-content-area .border-dashed {
+  border-style: dashed !important;
+}
+
+/* Font settings: use the Google fonts imported in the page */
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #1a1a1a;
+}
+
+h1, h2, h3, h4, .font-serif {
+  /* Use Poppins for strong headings, fall back to Forum for serif headings */
+  font-family: 'Poppins', 'Forum', system-ui, -apple-system, sans-serif;
+}
+
+/* Ensure H1 uses the large, bold geometric style */
+h1 {
+  font-size: clamp(2.8rem, 7.5vw, 6.4rem);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(1.6rem, 3.8vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.08;
+}
+
+/* Small utility to make paste-area content readable when pasted HTML brings its own margins */
+#pasted-content-area * {
+  max-width: 100%;
+}
+
+/* End of custom styles */
