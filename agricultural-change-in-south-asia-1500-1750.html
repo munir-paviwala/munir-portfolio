@@ -30,18 +30,9 @@
     </nav>
 
     <!-- MAP CONTAINER (Fills remaining space) -->
-    <main class="flex-grow relative w-full bg-gray-50">
-        
-        <!-- Placeholder -->
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-50 pointer-events-none">
-            <i class="fas fa-map text-6xl mb-4 opacity-10"></i>
-            <p class="font-medium opacity-50">ArcGIS Map Loads Here</p>
-            <p class="text-xs mt-2 opacity-60">(Full Width & Height)</p>
-        </div>
-
-        <!-- PASTE IFRAME HERE -->
-        <!-- <iframe src="..." class="w-full h-full" frameborder="0"></iframe> -->
-
+    <main class="flex-grow relative w-full h-full min-h-0 bg-gray-50">
+        <!-- ARCGIS STORYMAP EMBED -->
+        <iframe class="absolute inset-0 w-full h-full" src="https://storymaps.arcgis.com/stories/4fa3f1e3db9f494e9324b35f1fa08362?cover=false" frameborder="0" allowfullscreen allow="geolocation"></iframe>
     </main>
 
 </body>
