@@ -1,6 +1,5 @@
 # munir-portfolio
-Trying to launch the new website
-
+Moving the old website data from Wix to this new site hosted with static pages on Github Pages but custom domain
 
 ## License
 
