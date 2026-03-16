@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FDFBF7">
     <meta name="description" content="An ArcGIS StoryMap visualizing agricultural change in South Asia from 1500 to 1750, created by Munirmahedi Paviwala.">
     <title>Agricultural Change in South Asia | Munirmahedi Paviwala</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,16 +14,16 @@
         h1, h2, h3, h4 { font-family: 'Lora', serif; }
     </style>
 </head>
-<body class="flex flex-col h-screen bg-gray-100">
+<body class="flex flex-col h-screen bg-[#F4F1EA]">
 
     <!-- TOP NAV -->
-    <nav class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center shadow-sm shrink-0">
+    <nav class="sticky top-0 z-50 w-full border-t-4 border-t-emerald-600 bg-[#FDFBF7]/95 backdrop-blur-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center shadow-sm shrink-0">
         <div class="flex items-baseline gap-3">
             <a href="index.html" class="font-serif text-xl font-medium text-gray-900 hover:text-blue-800 transition-colors">Munirmahedi Paviwala</a>
-            <span class="hidden sm:inline-block text-xs text-gray-500 font-medium uppercase tracking-wider border-l border-gray-300 pl-3">PhD Candidate</span>
+            <span class="hidden sm:inline-block text-xs text-slate-600 font-medium uppercase tracking-wider border-l border-gray-300 pl-3">PhD Candidate</span>
         </div>
         <div class="flex items-center gap-6">
-            <a href="index.html" class="group flex items-center text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-blue-700 transition-colors">
+            <a href="index.html" class="group flex items-center text-xs font-bold uppercase tracking-widest text-slate-600 hover:text-blue-700 transition-colors">
                 <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i> 
                 <span class="hidden sm:inline">Back to Portfolio</span>
                 <span class="sm:hidden">Back</span>
@@ -31,7 +32,7 @@
     </nav>
 
     <!-- MAP CONTAINER (Fills remaining space) -->
-    <main class="flex-grow relative w-full h-full min-h-0 bg-gray-50">
+    <main class="flex-grow relative w-full h-full min-h-0 bg-[#FDFBF7]">
         <!-- ARCGIS STORYMAP EMBED -->
         <iframe class="absolute inset-0 w-full h-full" src="https://storymaps.arcgis.com/stories/4fa3f1e3db9f494e9324b35f1fa08362" frameborder="0" allowfullscreen allow="geolocation"></iframe>
     </main>

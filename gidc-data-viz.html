@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FDFBF7">
     <meta name="description" content="Interactive visualization of Gujarat Industrial Development Corporation's growth timeline and geographical distribution from 1975 to 2013, created by Munirmahedi Paviwala.">
     <title>GIDC Industrial Growth & Geography</title>
     <!-- Chart.js -->
@@ -19,17 +20,17 @@
         #map { height: 500px; width: 100%; border-radius: 0.5rem; z-index: 1;}
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans p-4 md:p-8">
+<body class="bg-[#FDFBF7] text-gray-800 font-sans p-4 md:p-8">
 
     <div class="max-w-6xl mx-auto space-y-8">
         
         <!-- Header Section -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="bg-white p-6 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-stone-200 flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
                 <h1 class="text-2xl font-bold text-slate-800">Gujarat Industrial Development Corporation</h1>
                 <p class="text-slate-500 text-sm mt-1">Growth Timeline & Geographical Distribution (1975 - 2013)</p>
             </div>
-            <button onclick="downloadCSV()" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg shadow transition-all font-medium text-sm">
+            <button onclick="downloadCSV()" class="flex items-center gap-2 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white px-6 py-3 rounded-lg shadow-[0_4px_14px_0_rgb(16_185_129_/_39%)] hover:shadow-[0_6px_20px_rgba(16,185,129,0.23)] hover:-translate-y-0.5 transition-all duration-300 font-medium text-sm tracking-wide">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
@@ -39,22 +40,22 @@
 
         <!-- Stats Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
+            <div class="bg-white p-5 rounded-xl border-t-4 border-t-blue-500 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 border border-stone-200 text-center">
                 <div id="totalArea" class="text-3xl font-bold text-blue-600">0</div>
-                <div class="text-xs uppercase tracking-wide text-gray-400 font-semibold mt-1">Total Hectares</div>
+                <div class="text-xs uppercase tracking-wide text-slate-500 font-semibold mt-1">Total Hectares</div>
             </div>
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
+            <div class="bg-white p-5 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 border border-stone-200 text-center">
                 <div id="totalUnits" class="text-3xl font-bold text-indigo-600">0</div>
-                <div class="text-xs uppercase tracking-wide text-gray-400 font-semibold mt-1">Units Notified</div>
+                <div class="text-xs uppercase tracking-wide text-slate-500 font-semibold mt-1">Units Notified</div>
             </div>
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-100 text-center">
+            <div class="bg-white p-5 rounded-xl border-t-4 border-t-emerald-500 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 border border-stone-200 text-center">
                 <div id="largestUnit" class="text-lg font-bold text-emerald-600 truncate px-2">-</div>
-                <div class="text-xs uppercase tracking-wide text-gray-400 font-semibold mt-1">Largest Single Notification</div>
+                <div class="text-xs uppercase tracking-wide text-slate-500 font-semibold mt-1">Largest Single Notification</div>
             </div>
         </div>
 
         <!-- Chart Section -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="bg-white p-6 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 border border-stone-200">
             <h2 class="text-lg font-semibold text-gray-700 mb-4 border-l-4 border-blue-500 pl-3">Cumulative Growth Timeline</h2>
             <div class="relative h-[400px] w-full">
                 <canvas id="growthChart"></canvas>
@@ -62,13 +63,13 @@
         </div>
 
         <!-- Map Section -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="bg-white p-6 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 border border-stone-200">
             <h2 class="text-lg font-semibold text-gray-700 mb-4 border-l-4 border-emerald-500 pl-3">Geographical Distribution</h2>
-            <p class="text-sm text-gray-500 mb-4">Circle size represents the area in hectares. Hover for details.</p>
+            <p class="text-sm text-slate-600 mb-4">Circle size represents the area in hectares. Hover for details.</p>
             <div id="map" class="bg-gray-100"></div>
         </div>
 
-        <p class="text-center text-xs text-gray-400 mt-8">
+        <p class="text-center text-xs text-slate-500 mt-8">
             Data sourced from Wikipedia GIDC Notified Areas table. Coordinates are approximate locations of the industrial estates.
         </p>
     </div>
@@ -287,9 +288,9 @@
             const popupContent = `
                 <div class="font-sans text-sm">
                     <h3 class="font-bold text-gray-800 border-b pb-1 mb-1">${loc.name}</h3>
-                    <p class="text-gray-600 mb-1">District: ${loc.district}</p>
+                    <p class="text-slate-700 mb-1">District: ${loc.district}</p>
                     <p class="text-emerald-700 font-bold mb-2">Total Area: ${Math.round(loc.totalArea).toLocaleString()} ha</p>
-                    <div class="text-xs text-gray-500 max-h-20 overflow-y-auto">
+                    <div class="text-xs text-slate-600 max-h-20 overflow-y-auto">
                         ${loc.items.join('<br>')}
                     </div>
                 </div>
