@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FDFBF7">
+    <meta name="description" content="An ArcGIS StoryMap exploring the interests of British Forestry in South Asia using textual sources and mapping, created by Munirmahedi Paviwala.">
+    <title>Interests of British Forestry in South Asia | Munirmahedi Paviwala</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap');
+        body { font-family: 'Inter', sans-serif; overflow: hidden; } /* No scroll on body */
+        h1, h2, h3, h4 { font-family: 'Lora', serif; }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7CWCV9941Q"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7CWCV9941Q');
+    </script>
+</head>
+<body class="flex flex-col h-screen bg-[#F4F1EA]">
+
+    <!-- TOP NAV -->
+    <nav class="sticky top-0 z-50 w-full border-t-4 border-t-emerald-600 bg-[#FDFBF7]/95 backdrop-blur-sm border-b border-gray-200 px-6 py-4 flex justify-between items-center shadow-sm shrink-0">
+        <div class="flex items-baseline gap-3">
+            <a href="index.html" class="font-serif text-xl font-medium text-gray-900 hover:text-blue-800 transition-colors">Munirmahedi Paviwala</a>
+            <span class="hidden sm:inline-block text-xs text-slate-600 font-medium uppercase tracking-wider border-l border-gray-300 pl-3">PhD Candidate</span>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="index.html" class="group flex items-center text-xs font-bold uppercase tracking-widest text-slate-600 hover:text-blue-700 transition-colors">
+                <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i> 
+                <span class="hidden sm:inline">Back to Portfolio</span>
+                <span class="sm:hidden">Back</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- MAP CONTAINER (Fills remaining space) -->
+    <main class="flex-grow relative w-full h-full min-h-0 bg-[#FDFBF7]">
+        <!-- ARCGIS STORYMAP EMBED -->
+        <iframe class="absolute inset-0 w-full h-full" src="https://storymaps.arcgis.com/stories/a0013582a57e4ae5835c661dbc037406" frameborder="0" allowfullscreen allow="geolocation"></iframe>
+    </main>
+
+</body>
+</html>
